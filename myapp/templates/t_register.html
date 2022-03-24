@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+
+<body>
+
+<div class="login-page">
+  <div class="login">
+    <div class="header">
+      <h2>Course Management<br>System</h2>
+      <h3>Register As Teacher</h3>
+    </div>
+    <div class="teacher-register form">
+    <form action="teacher-dash.html" method="get">
+        <input id="user" type="text" placeholder="Username" required/>
+        <input id="pass" type="password" placeholder="password" required/>
+        <input id="fname" type="text" placeholder="Name" required/>
+        <!-- <input id="dob" type="date" placeholder="Date Of Birth" required/>
+        <input id="batch" type="number" placeholder="Batch" required/>
+        <input id="roll" type="text" placeholder="Roll Number" required/ -->
+            <select id="dept" name="Department" required>
+            <option value="CS">CS</option>
+            <option value="BBA">BBA</option>
+            <option value="EE">EE</option>
+            <option value="AI">AI</option>
+            <option value="CY">CY</option>
+            <option value="SE">SE</option>
+        </select>
+        
+    <button class="button">
+      Register
+    </button>
+    </form>
+  </div>
+  </div>
+</div>
+
+</body>
+</html>

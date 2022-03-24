@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+
+<script>
+    function disableSubmit() {
+     document.getElementById("submit").disabled = true;
+    }
+   
+     function activateButton(element) {
+   
+         if(element.checked) {
+           document.getElementById("submit").disabled = false;
+          }
+          else  {
+           document.getElementById("submit").disabled = true;
+         }
+   
+     }
+   </script>
+
+
+<body onload="disableSubmit()">
+
+<div class="dash">
+  <div class="dashboard">
+    <div class="header">
+      <h2>Course Management System</h2>
+      <h3>Delete Account</h3>
+    </div>
+    <form action="home.html">
+    <div class="t-dash form">
+        I realize I cannot recover my account once this option is clicked<input type="checkbox" name="terms" id="terms" onchange="activateButton(this)">
+    <input type="submit" name="submit" id="submit">
+    </div>
+    </form>
+  </div>
+  </div>
+</div>
+
+</body>
+</html>
