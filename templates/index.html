@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+ 
+
+<body>
+
+<div class="home-page">
+  <div class="home-page-1">
+    <div class="header">
+      <h2>Welcome to <br>Course Management<br>System</h2> 
+    </div>
+    <div>
+    <button type="button" class="button" onclick="location.href='t_login'">
+      Teacher
+    </button>
+  </div>
+  <div>
+    <button type="button" class="button" onclick="location.href='s_login'">
+      Student
+    </button>
+  </div>
+  <div>
+    <button type="button" class="button" onclick="location.href='adm_login'">
+      Administrator
+    </button>
+  </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<div class="login-page">
+  <div class="login">
+    <div class="header">
+      <h2>Course Management<br>System</h2>
+      <h3>Admin Login</h3>
+    </div>
+    <div class="form">
+    <form action="adm_dash.html" method="get">
+        <input type="text" placeholder="username" required/>
+        <input type="password" placeholder="password" required/>
+    <button class="button">
+      Login
+    </button>
+    </form>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

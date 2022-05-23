@@ -3,3 +3,14 @@
 "# Class-management" 
 "# Class-management" 
 "# Course-Management-System" 
+
+"## Run the Following Scripts to Install Python and Requirements "
+
+" pip install pymongo "
+" pip install numpy "
+" pip install django "
+" pip install djongo "
+" pip install pandas "
+" python manage.py makemigrations "
+" python manage.py migrate "
+" python manage.py runserver "

@@ -1,0 +1,105 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+body{
+  font-family: "Roboto",sans-serif;
+  align-items: center;
+  display: flex;
+  background-image: linear-gradient(to right,hsl(189, 75%, 42%),hsl(185,71%,93%));
+}
+
+
+
+.home-page{
+  width: 600px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+
+.dash{
+  width: 600px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+
+.login-page{
+  width: 400px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+
+.home-page-1{
+  position: relative;
+  z-index: 1;
+  background: white;
+  margin: 0 auto 100px;
+  padding: 30px;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.login{
+  position: relative;
+  z-index: 1;
+  background: white;
+  margin: 0 auto 100px;
+  padding: 30px;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.dashboard{
+  position: relative;
+  z-index: 1;
+  background: white;
+  margin: 0 auto 100px;
+  padding: 30px;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.button{
+  cursor: pointer;
+  text-transform: uppercase;
+  outline: 0;
+  background-color: rgb(3, 127, 143);
+  color: white;
+  width: 300px;
+  padding: 15px;
+  font-size: 18px;
+  margin: 0 0 15px;
+}
+
+.login-page .button{
+  cursor: pointer;
+  text-transform: uppercase;
+  outline: 0;
+  background-color: rgb(3, 127, 143);
+  color: white;
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  margin: 0 0 15px;
+}
+
+.form input{
+  background: #f2f2f2;
+  width: 100%;
+  border:0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.form select{
+  background: #f2f2f2;
+  width: 100%;
+  border:0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
