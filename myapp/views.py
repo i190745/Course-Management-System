@@ -25,6 +25,7 @@ def student_login(request):
         user=authenticate(username=username,password=password)
         if user is not None:
             login(request,user)
+            request.session['user'] = username
             return redirect('Student Dashboard')
         else:
             messages.info(request, 'Username OR password is incorrect')
@@ -41,12 +42,13 @@ def student_register(request):
         form=StudentForm(request.POST)
         if form.is_valid():
             form.save()
+            username=request.POST['username']
             email=request.POST['email']
             name=request.POST['name']
             batch=request.POST['batch']
             roll_number=request.POST['roll_number']
             department=request.POST['department']
-            s=Student.objects.create(name=name,email=email,batch=batch,roll_number=roll_number,department=department)
+            s=Student.objects.create(name=name,username=username,email=email,batch=batch,roll_number=roll_number,department=department)
             s.save()
             messages.success(request, 'Student has registered successfully ')
             return redirect('Student Login')
@@ -58,4 +60,7 @@ def teacher_register(request):
 
 
 def student_dash(request):
-    return render(request, "s_dash.html")
+    user = request.session.get('user')
+    stu=Student.objects.get(username=user)
+    print(stu)
+    return render(request, "s_dash.html",{'student':stu})

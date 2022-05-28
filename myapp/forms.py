@@ -18,6 +18,7 @@ DEPARTMENTS=(
 
 
 class StudentForm(UserCreationForm):
+    username=forms.CharField(label="Username",max_length=60,required=True)
     email=forms.EmailField(label="Email",max_length=60,required=True)
     name=forms.CharField(label="Full Name",max_length=100,required=True)
     batch=forms.IntegerField(label="Batch",min_value=16,max_value=21,required=True)

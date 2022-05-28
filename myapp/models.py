@@ -10,6 +10,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 class Student(models.Model):
     #_id=models.AutoField()
+    username=models.CharField(primary_key=True,max_length=20)
     name=models.CharField(max_length=100)
     email=models.EmailField(verbose_name="Email Address",max_length=60,unique=True,error_messages={'unique': ("Email Already Exists"),})
     password=models.CharField(verbose_name="Password",max_length=20)
