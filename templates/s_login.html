@@ -19,13 +19,17 @@
       <h3>Student Login</h3>
     </div>
     <div class="form">
-    <form action="s_dash.html" method="post" >
-        <input type="text" placeholder="username" required/>
-        <input type="password" placeholder="password" required/>
+    <form action="" method="post" >
+        {% csrf_token %}
+        <input type="text" name="username" id="username" placeholder="username" required/>
+        <input type="password" name="password" id="password" placeholder="password" required/>
     <button class="button">
       Login
     </button>
     </form>
+    {% for message in messages %}
+      <p>{{message}}</p>
+    {% endfor %}
   </div>
   <div>
     <button type="button" class="button" onclick="location.href='s_register'">
