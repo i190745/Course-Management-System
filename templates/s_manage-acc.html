@@ -1,10 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Page Title</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 
@@ -16,6 +18,9 @@
       <h2>Course Management System</h2>
       <h3>Manage Account</h3>
     </div>
+    <p>{{student.name}}</p>
+    <p>{{student.batch}}</p>
+    <p>{{student.username}}</p>
     <div class="student-dash form">
     <button type="button" class="button" onclick="location.href='./s_change-password.html'">
         Change Password

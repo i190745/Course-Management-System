@@ -62,5 +62,9 @@ def teacher_register(request):
 def student_dash(request):
     user = request.session.get('user')
     stu=Student.objects.get(username=user)
-    print(stu)
     return render(request, "s_dash.html",{'student':stu})
+
+def student_manage_acc(request):
+    user = request.session.get('user')
+    stu=Student.objects.get(username=user)
+    return render(request, "s_manage-acc.html",{'student':stu})
