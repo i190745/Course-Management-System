@@ -10,25 +10,10 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-
-
 def index(request):
     return render(request, "index.html")
 
-def teacher_login(request):
-    if request.method=='POST':
-        username=request.POST.get('username')
-        password=request.POST.get('password')
 
-        user=authenticate(username=username,password=password)
-        if user is not None:
-            login(request, user)
-            request.session['user']=username
-            return redirect('Teacher Dashboard')
-        else:
-            messages.info(request, 'Username OR password is incorrect')
-            return render(request, 't_login.html')
-    return render(request, "t_login.html")
 
 def student_login(request):
     if request.method=='POST':
@@ -44,21 +29,6 @@ def student_login(request):
             messages.info(request, 'Username OR password is incorrect')
             return render(request, "s_login.html")
     return render(request, "s_login.html")
-
-def admin_login(request):
-    if request.method=='POST':
-        username=request.POST.get('username')
-        password=request.POST.get('password')
-
-        user=authenticate(username=username,password=password)
-        if user is not None:
-            login(request,user)
-            request.session['user'] = username
-            return redirect('Admin Dashboard')
-        else:
-            messages.info(request, 'Username OR password is incorrect')
-            return render(request, "adm_login.html")
-    return render(request, "adm_login.html")
 
 
 def student_register(request):
@@ -80,21 +50,7 @@ def student_register(request):
     
     return render(request, "s_register.html",{'form':form})
 
-def teacher_register(request):
-    form=TeacherForm()
-    if request.method=='POST':
-        form=TeacherForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username=request.POST['username']
-            email=request.POST['email']
-            name=request.POST['name']
-            department=request.POST['department']
-            t=Teacher.objects.create(name=name,username=username,email=email,department=department)
-            t.save()
-            messages.success(request, 'Teacher has registered successfully ')
-            return redirect('Teacher Login')
-    return render(request, "t_register.html",{'form':form})
+
 
 @login_required(login_url='Student Login')
 def student_dash(request):
@@ -150,7 +106,82 @@ def student_change_password(request):
         form=PasswordChangeForm(request.user)
     return render(request, "s_change-password.html",{'form':form})
 
+@login_required(login_url='Student Login')
+def student_enroll_course(request):
+    user = request.session.get('user')
+    stu=Student.objects.get(username=user)
+    courses=Course.objects.filter(department=stu.department)
+    if request.method=='POST':
+        cid=request.POST['courseid']
+        if Course.objects.filter(course_id=cid).exists():
+            if studentClasses.objects.filter(course_id=cid,student=stu.username).exists():
+                messages.info(request, "Student Already Registered In Course") 
+            else:
+                c_s=studentClasses.objects.create(course_id=cid,student=stu.username)
+                c_s.save()
+                messages.success(request, stu.name + "Successfully Enrolled to "+cid)
+        else:
+            messages.info(request, "Course Does Not Exist") 
+    return render(request, "s_enroll.html",{'courses':courses})
+
+@login_required(login_url='Student Login')
+def student_drop_course(request):
+    user = request.session.get('user')
+    stu=Student.objects.get(username=user)
+    c_s=studentClasses.objects.filter(student=stu.username)
+    c_list=Course.objects.all()
+    if request.method=='POST':
+        cid=request.POST['courseid']
+        if not studentClasses.objects.filter(student=stu.username).exists() and Course.objects.filter(course_id=cid).exists():
+            messages.info(request, "Not Enrolled In This Course")
+        elif not studentClasses.objects.filter(course_id=cid).exists():
+            messages.info(request, "Course Does Not Exist")
+        else:
+            row=studentClasses.objects.filter(course_id=cid,student=stu.username)
+            row.delete()
+            messages.info(request, stu.name + "Successfully Dropped "+cid) 
+    return render(request, "s_drop.html",{'courses':c_list,'c_s':c_s,'student':stu})
+
+@login_required(login_url='Student Login')
+def student_view_courses(request):
+    user = request.session.get('user')
+    stu=Student.objects.get(username=user)
+    c_s=studentClasses.objects.filter(student=stu.username)
+    c_list=Course.objects.all()
+    return render(request, "s_view_courses.html",{'courses':c_list,'c_s':c_s,'student':stu})
+
 ######### TEACHER
+def teacher_register(request):
+    form=TeacherForm()
+    if request.method=='POST':
+        form=TeacherForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username=request.POST['username']
+            email=request.POST['email']
+            name=request.POST['name']
+            department=request.POST['department']
+            t=Teacher.objects.create(name=name,username=username,email=email,department=department)
+            t.save()
+            messages.success(request, 'Teacher has registered successfully ')
+            return redirect('Teacher Login')
+    return render(request, "t_register.html",{'form':form})
+
+def teacher_login(request):
+    if request.method=='POST':
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+
+        user=authenticate(username=username,password=password)
+        if user is not None:
+            login(request, user)
+            request.session['user']=username
+            return redirect('Teacher Dashboard')
+        else:
+            messages.info(request, 'Username OR password is incorrect')
+            return render(request, 't_login.html')
+    return render(request, "t_login.html")
+
 @login_required(login_url='Teacher Login')
 def teacher_manage_acc(request):
     user = request.session.get('user')
@@ -189,6 +220,23 @@ def teacher_change_password(request):
 
 
 ######### ADMIN
+
+def admin_login(request):
+    if request.method=='POST':
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+
+        user=authenticate(username=username,password=password)
+        if user is not None:
+            login(request,user)
+            request.session['user'] = username
+            return redirect('Admin Dashboard')
+        else:
+            messages.info(request, 'Username OR password is incorrect')
+            return render(request, "adm_login.html")
+    return render(request, "adm_login.html")
+
+
 @login_required(login_url='Admin Login')
 def admin_manage_acc(request):
     user = request.session.get('user')

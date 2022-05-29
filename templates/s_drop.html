@@ -1,0 +1,66 @@
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+
+<body>
+
+<div class="dashboard">
+  <div class="dash">
+    <div class="header">
+      <h1>Course Management System</h1>
+      <p>{{student.name}} {{student.batch}}I- {{student.roll_number}}</p>
+      <p>{{student.department}}</p>
+      <h2>DROP COURSE</h2>
+    </div>
+    <div>
+      <table>
+        <tr>
+            <th>Course_ID</th>
+            <th>Name</th>
+            <th>Prereq</th>
+        </tr>
+        <h3>COURSES</h3>
+        {% for course in courses %}
+        {% for c in c_s %}
+        {% if c.course_id == course.course_id %}
+        <tr><td>{{course.course_id}}</td><td> {{course.name}}</td><td> {{course.prerequisite}}</td>
+        </tr>
+        {%endif %}
+        {% endfor %}
+        {% endfor %}
+    </table>
+    </div>
+      <h3>DROP COURSE</h3>
+      <div>
+    <div class="student-register form">
+      <form action="" method="post">
+          {% csrf_token %}
+          <input type="text" name="courseid" id="courseid" placeholder="Course ID" required/>
+      <button class="button" type="submit">
+        Drop Course
+      </button>
+      </form>
+    </div>
+        <button type="button" class="button" onclick="location.href='s_dash'">
+            Back
+            </button>
+      </div>
+  </div>
+    {% for message in messages %}
+    <p>{{message}}</p>
+  {% endfor %}
+  </div>
+</div>
+
+</body>
+</html>
+{% endblock content %}

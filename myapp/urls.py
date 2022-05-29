@@ -11,6 +11,10 @@ urlpatterns = [
     path('s_manage_acc',views.student_manage_acc,name='Student Manage Account'),
     path('s_change_password',views.student_change_password,name='Student Change Password'),
     path('s_delete_account',views.student_delete_account,name='Student Delete Account'),
+    path('s_view_courses',views.student_view_courses,name='Student View Courses'),
+    path('s_enroll',views.student_enroll_course,name='Student Enroll Course'),
+    path('s_drop',views.student_drop_course,name='Student Drop Course'),
+    
 
     
     path('t_register',views.teacher_register,name='Teacher Register'),

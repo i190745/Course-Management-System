@@ -1,0 +1,55 @@
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+
+<body>
+
+<div class="dashboard">
+  <div class="dash">
+    <div class="header">
+      <h1>Course Management<br>System</h1>
+      <h2>Enroll Course</h2>
+    </div>
+    <div>
+        <table>
+        <tr>
+            <th>Course_ID</th>
+            <th>Name</th>
+            <th>Prereq</th>
+        </tr>
+        <h3>COURSES</h3>
+        {% for course in courses %}
+        <tr><td>{{course.course_id}}</td><td> {{course.name}}</td><td> {{course.prerequisite}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    <div class="student-register form">
+    <form action="" method="post">
+        <h3>Select Course</h3>
+        <form action="" method="post">
+          {% csrf_token %}
+          <input type="text" name="courseid" id="courseid" placeholder="Course ID" required/>
+      <button class="button" type="submit">
+        Enroll In Course
+      </button>
+    </form>
+  </div>
+  {% for message in messages %}
+  <p>{{message}}</p>
+{% endfor %}
+  </div>
+</div>
+
+</body>
+</html>
+{% endblock content %}
