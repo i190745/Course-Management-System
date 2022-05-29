@@ -1,10 +1,13 @@
+{% load static %}
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Page Title</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 
@@ -34,10 +37,11 @@
       <h2>Course Management System</h2>
       <h3>Delete Account</h3>
     </div>
-    <form action="home.html">
+    <form action="" method="post">
+      {% csrf_token %}
     <div class="t-dash form">
         I realize I cannot recover my account once this option is clicked<input type="checkbox" name="terms" id="terms" onchange="activateButton(this)">
-    <input type="submit" name="submit" id="submit">
+    <button type="submit" class="logout-button" name="submit" id="submit">DELETE</button>
     </div>
     </form>
   </div>
@@ -46,3 +50,4 @@
 
 </body>
 </html>
+{% endblock content %}

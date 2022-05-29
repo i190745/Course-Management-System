@@ -1,10 +1,12 @@
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Page Title</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 
@@ -17,26 +19,31 @@
       <h3>Manage Courses</h3>
     </div>
     <div>
-        <button type="button" class="button" onclick="location.href='./adm_add_course.html'">
+        <button type="button" class="button" onclick="location.href='adm_add_course'">
             Add Course
             </button>
       </div>
       <div>
-        <button type="button" class="button" onclick="location.href='./adm_remove-course.html'">
+        <button type="button" class="button" onclick="location.href='adm_remove_course'">
             Remove Course
             </button>
       </div>
       <div>
-        <button type="button" class="button" onclick="location.href='./adm_specify-prerequisite.html'">
+        <button type="button" class="button" onclick="location.href='adm_specify_prerequisite'">
             Specify PreRequisite
             </button>
       </div>
-      <button type="button" class="button" onclick="location.href='./adm_view_course_select.html'">
+      <button type="button" class="button" onclick="location.href='adm_view_course_select'">
         View Courses
         </button>
+        {% for message in messages %}
+  <p>{{message}}</p>
+{% endfor %}
   </div>
+
   </div>
 </div>
 
 </body>
 </html>
+{% endblock content %}

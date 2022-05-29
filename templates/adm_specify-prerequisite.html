@@ -1,0 +1,54 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+
+<body>
+
+<div class="dashboard">
+  <div class="dash">
+    <div class="header">
+      <h2>Course Management<br>System</h2>
+      <h3>Add PreRequisite</h3>
+    </div>
+    <div>
+      <table>
+      <tr>
+          <th>Course_ID</th>
+          <th>Name</th>
+          <th>Prereq</th>
+          <th>Department</th>
+      </tr>
+      <h2>COURSES</h2>
+      {% for course in courses %}
+      <tr><td>{{course.course_id}}</td><td> {{course.name}}</td><td> {{course.prerequisite}}</td><td> {{course.department}}</td>
+      </tr>
+      {% endfor %}
+  </table>
+  </div>
+    <div class="student-register form">
+      <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" name="courseid" id="courseid" placeholder="Course ID" required/>
+        <input type="text" name="prereq" id="prereq" placeholder="PreReq ID" required/>
+    <button class="button" type="submit">
+      Confirm
+    </button>
+    </form>
+    {% for message in messages %}
+    <p>{{message}}</p>
+    {% endfor %}
+  </div>
+  </div>
+</div>
+
+</body>
+</html>
+{% endblock content %}

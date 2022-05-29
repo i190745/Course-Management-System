@@ -111,7 +111,7 @@ def teacher_dash(request):
 @login_required(login_url='Admin Login')
 def admin_dash(request):
     user = request.session.get('user')
-    adm=admin.objects.get(username=user)
+    adm=Admin.objects.get(username=user)
     return render(request, "adm_dash.html",{'admin':adm})
 
 @login_required(login_url='Student Login')
@@ -210,7 +210,7 @@ def admin_delete_account(request):
         messages.success(request, "User Deleted Successfully")
         return redirect(request,'index1')
     
-    return render(request, "adm_delete_acc.html")
+    return render(request, "adm_delete-acc.html")
 
 @login_required(login_url='Admin Login')
 def admin_change_password(request):
@@ -223,4 +223,53 @@ def admin_change_password(request):
             return redirect('Admin Dashboard')
     else:
         form=PasswordChangeForm(request.user)
-    return render(request, "adm_change-password.html",{'form':form})    
+    return render(request, "adm_change_password.html",{'form':form})    
+
+@login_required(login_url='Admin Login')
+def admin_manage_courses(request):
+    return render(request, "adm_manage_courses.html")    
+
+
+@login_required(login_url='Admin Login')
+def admin_add_course(request):
+    form=CourseForm()
+    if request.method=='POST':
+        form=CourseForm(request.POST)
+        if form.is_valid():
+            cid=request.POST['course_id']
+            cname=request.POST['name']
+            dept=request.POST['department']
+            course=Course.objects.create(course_id=cid,name=cname,department=dept)
+            course.save()
+            messages.success(request, 'Course added successfully ')  
+            return redirect('Admin Manage Courses')
+
+    return render(request, "adm_add_course.html",{'form':form})    
+
+@login_required(login_url='Admin Login')
+def admin_remove_course(request):
+    courses=Course.objects.all()
+    if request.method=='POST':
+        cid=request.POST['courseid']
+        if Course.objects.filter(course_id=cid).exists():
+            c=Course.objects.filter(course_id=cid)
+            c.delete()
+            messages.success(request, 'Course Removed Successfully')
+        else:     
+            messages.info(request, "Course ID does not Exist") 
+    return render(request, "adm_remove-course.html",{'courses':courses})
+
+@login_required(login_url='Admin Login')
+def admin_specify_prerequisite(request):
+    courses=Course.objects.all()
+    if request.method=='POST':
+        cid=request.POST['courseid']
+        pid=request.POST['prereq']
+        if Course.objects.filter(course_id=cid).exists() and Course.objects.filter(course_id=pid).exists():
+            c=Course.objects.filter(course_id=cid)
+            c.update(prerequisite=pid)
+            messages.success(request, 'Prerequisite Added Successfully')
+        else:
+            messages.info(request, "Course or PreRequisite does not Exist") 
+
+    return render(request, "adm_specify-prerequisite.html",{'courses':courses})
