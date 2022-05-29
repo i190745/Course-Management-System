@@ -25,4 +25,14 @@ class StudentForm(UserCreationForm):
     roll_number=forms.IntegerField(label="Roll Number",min_value=1,required=True)
     department=forms.ChoiceField(choices=DEPARTMENTS,label="Department",required=True)
 
+class TeacherForm(UserCreationForm):
+    username=forms.CharField(label="Username",max_length=60,required=True)
+    email=forms.EmailField(label="Email",max_length=60,required=True)
+    name=forms.CharField(label="Full Name",max_length=100,required=True)
+    department=forms.ChoiceField(choices=DEPARTMENTS,label="Department",required=True)
+    
+class CourseForm(forms.Form):
+    department=forms.ChoiceField(choices=DEPARTMENTS,label="Department",required=True)
+    course_id=forms.CharField(label="Course ID",max_length=10,required=True)
+    name=forms.CharField(label="Course Name",max_length=255,required=True)
     

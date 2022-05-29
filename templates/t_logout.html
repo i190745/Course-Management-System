@@ -16,23 +16,17 @@
   <div class="login">
     <div class="header">
       <h2>Course Management<br>System</h2>
-      <h3>Register As Teacher</h3>
     </div>
-    <div class="teacher-register form">
-    <form action="" method="post">
-      {% csrf_token %}
-      {{form}}
-    <button class="button" type="submit" value="Submit">
-      Register
-    </button>
-    {{form.errors }} 
-    </form>
-    {% for message in messages %}
-      <p>{{message}}</p>
-    {% endfor %}
+    <div>
+        <h4>Teacher Has Successfully Logged Out</h4>
     <button type="button" class="button" onclick="location.href='t_login'">
-      Login
+      LOG IN
     </button>
+    <button type="button" class="button" onclick="location.href='home'">
+        RETURN TO HOME
+      </button>
+  </div>
+  <div>
   </div>
   </div>
 </div>

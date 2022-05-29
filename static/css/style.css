@@ -72,6 +72,18 @@ body{
   margin: 0 0 15px;
 }
 
+.logout-button{
+  cursor: pointer;
+  text-transform: uppercase;
+  outline: 0;
+  background-color: rgb(230, 32, 32);
+  color: white;
+  width: 300px;
+  padding: 15px;
+  font-size: 18px;
+  margin: 0 0 15px;
+}
+
 .login-page .button{
   cursor: pointer;
   text-transform: uppercase;

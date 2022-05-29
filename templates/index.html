@@ -14,6 +14,9 @@
 
 <div class="home-page">
   <div class="home-page-1">
+    {% for message in messages %}
+    <p>{{message}}</p>
+    {% endfor %}
     <div class="header">
       <h2>Welcome to <br>Course Management<br>System</h2> 
       <h2>{{stu.name}}</h2>

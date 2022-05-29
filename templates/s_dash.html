@@ -1,5 +1,5 @@
 {% load static %}
-
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,16 +10,16 @@
 </head>
 
 
-<body>
-
+<body> 
+   
 <div class="dash">
   <div class="dashboard">
+
     <div class="header">
       <h2>Course Management System</h2>
       <h3>Student dashboard</h3>
-      <p>{{student.name}}</p>
-      <p>{{student.batch}}</p>
-      <p>{{student.username}}</p>
+      <p>{{student.name}} {{student.batch}}I- {{student.roll_number}}</p>
+      <p>{{student.department}}</p>
     </div>
     <div class="student-dash form">
     <button type="button" class="button" onclick="location.href='s_manage_acc'">
@@ -39,9 +39,16 @@
           Drop Course
         </button>
     </form>
+    <button type="button" class="logout-button" onclick="location.href='s_logout'">
+      LOGOUT 
+    </button>
   </div>
+  {% for message in messages %}
+  <p>{{message}}</p>
+{% endfor %}
   </div>
 </div>
 
 </body>
 </html>
+{% endblock content %}

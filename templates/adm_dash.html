@@ -1,10 +1,12 @@
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Page Title</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 
@@ -14,10 +16,11 @@
   <div class="dashboard">
     <div class="header">
       <h2>Course Management System</h2>
-      <h3>Teacher dashboard</h3>
+      <h3>Admin dashboard</h3>
+      <p>{{admin.name}} {{admin.username}}</p>
     </div>
     <div class="teacher-dash form">
-    <button type="button" class="button" onclick="location.href='./t_manage-acc.html'">
+    <button type="button" class="button" onclick="location.href='t_manage_acc'">
         Manage Account
         </button>
     </div>
@@ -34,9 +37,17 @@
         <button type="button" class="button" onclick="location.href='./t_select-course.html'">
         View Courses
         </button>
+        <button type="button" class="logout-button" onclick="location.href='adm_logout'">
+          LOGOUT 
+        </button>
+  </div>
+  {% for message in messages %}
+  <p>{{message}}</p>
+{% endfor %}
   </div>
   </div>
 </div>
 
 </body>
 </html>
+{% endblock content %}

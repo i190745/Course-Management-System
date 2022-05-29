@@ -1,10 +1,12 @@
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Page Title</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 
@@ -15,14 +17,15 @@
     <div class="header">
       <h2>Course Management System</h2>
       <h3>Manage Account</h3>
+      <p>{{admin.name}} {{admin.username}}</p>
     </div>
     <div class="student-dash form">
-    <button type="button" class="button" onclick="location.href='./t_change-password.html'">
+    <button type="button" class="button" onclick="location.href='adm_change_password'">
         Change Password
         </button>
     </div>
     <div>
-        <button type="button" class="button" onclick="location.href='./t_delete-acc.html'">
+        <button type="button" class="button" onclick="location.href='adm_delete_account'">
             Delete Account
             </button>
     </form>
@@ -32,3 +35,4 @@
 
 </body>
 </html>
+{% endblock content %}
