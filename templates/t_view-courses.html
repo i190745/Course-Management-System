@@ -1,45 +1,59 @@
+{% load static %}
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Page Title</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 
 <body>
 
-<div class="dash">
-  <div class="dashboard">
+<div class="dashboard">
+  <div class="dash">
     <div class="header">
-      <h2>Course Management System</h2>
-      <h3>CS 118</h3>
+      <h2>Course Management<br>System</h2>
+      <h3>View Course</h3>
+      <h4>{{cid}}</h2>
     </div>
     <div>
-        <table align="center">
-            <tr>
-              <th>Student</th>
-            </tr>
-            <tr>
-              <td>i190656</td>
-            </tr>
-            <tr>
-            <td>i190723</td>
-            </tr>
-              <tr>
-                <td>i190745</td>
-              </tr>
-          </table>
-      </div><br>
-    <div>
-        <button type="button" class="button" onclick="location.href='t_set_registration_limit.html'">
-        Set Registration Limit
-        </button>
+    <table>
+        <tr>
+            <th>STUDENT NAME</th>
+            <th>ROLL NUMBER</th>
+        </tr>
+        <h3>COURSES</h3>
+        {% for row in courses %}
+        {% for s in students %}
+        {% if row.student == s.username %}
+        <tr><td>{{s.name}}</td><td> {{s.batch}}I-{{s.roll_number}}</td>
+        </tr>
+        {%endif %}
+        {% endfor %}
+        {% endfor %}
+    </table>
     </div>
-      
+    <div>
+      <br>
+      <br>
+    </div>
+    <div>
+   
+    <button type="button" class="button" onclick="location.href='t_view-courses'">
+      BACK
+    </button>
+    </div>
+  </div>
+  {% for message in messages %}
+  <p>{{message}}</p>
+{% endfor %}
   </div>
 </div>
 
 </body>
 </html>
+{% endblock content %}

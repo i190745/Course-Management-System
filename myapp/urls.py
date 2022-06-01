@@ -22,9 +22,11 @@ urlpatterns = [
     path('t_manage_acc',views.teacher_manage_acc,name='Teacher Manage Account'),
     path('t_change_password',views.teacher_change_password,name='Teacher Change Password'),
     path('t_delete_account',views.teacher_delete_account,name='Teacher Delete Account'),
+    ###
     path('t_view-courses',views.teacher_view_courses,name='Teacher View Courses'),
+    path('t_upload-lectures',views.teacher_upload_lectures,name='Teacher Upload Lectures'),
 
-
+    ##
     path('adm_login',views.admin_login,name='Admin Login'),
     path('adm_logout',views.admin_logout,name='Admin Logout'),
     path('adm_dash',views.admin_dash,name='Admin Dashboard'),

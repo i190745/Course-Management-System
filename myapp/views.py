@@ -212,6 +212,30 @@ def teacher_change_password(request):
         form=PasswordChangeForm(request.user)
     return render(request, "t_change-password.html",{'form':form})    
 
+######## 
+@login_required(login_url='Teacher Login')
+def teacher_view_courses(request):
+    user = request.session.get('user')
+    teacher=Teacher.objects.get(username=user)
+    c_list=teacherClass.objects.all()
+    if request.method=='POST':
+        cid=request.POST['cid']
+        c_s=studentClasses.objects.filter(course_id=cid)
+        students=Student.objects.all()
+        return render(request,'t_view-courses.html',{'cid':cid,'courses':c_s,'students':students})
+
+    return render(request, "t_select-course.html",{'courses':c_list})
+
+@login_required(login_url='Teacher Login')
+def teacher_upload_lectures(request):
+    user = request.session.get('user')
+    teacher=Teacher.objects.get(username=user)
+    c_list=teacherClass.objects.all()
+    if request.method=='POST':
+        cid=request.POST['cid']
+        messages.success(request, "Lecture Has Been Uploaded")
+        return render(request, "t_upload-lectures.html",{'cid':cid})
+    return render(request, "t_select-course.html",{'courses':c_list})
 
 ######### ADMIN
 

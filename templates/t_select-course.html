@@ -17,21 +17,29 @@
   <div class="dash">
     <div class="header">
       <h2>Course Management<br>System</h2>
-      <h3>Upload Lecture {{cid}}</h3>
+      <h3>View Courses</h3>
     </div>
-    <div class="form">
+    <div class="student-register form">
     <form action="" method="post">
       {% csrf_token %}
-        <input type="number" placeholder="Lecture No" required/>
-        <input type="text" placeholder="Lecture Name" required/>
-        <label for="myfile">Select a file to attach:</label>
-        <input type="file" id="myfile" name="myfile">
-    <button class="button" type="submit" onclick="location.href='t_dash'">
-      ADD
+        <select id="cid" name="cid" required>
+           {% for c in courses %}
+           <option value="{{c.course_id}}">{{c.course_id}}</option>
+            {%endfor%}
+        </select>
+    </h3>
+    <button class="button" type="submit">
+      VIEW COURSE
     </button>
     </form>
+    <button type="button" class="button" onclick="location.href='t_dash'">
+      Back
+      </button>
   </div>
-</div>
+  {% for message in messages %}
+  <p>{{message}}</p>
+{% endfor %}
+  </div>
 </div>
 
 </body>
