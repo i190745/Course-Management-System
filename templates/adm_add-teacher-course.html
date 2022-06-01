@@ -1,0 +1,43 @@
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+
+<body>
+
+<div class="dash">
+<div class="dashboard">
+    <div class="header">
+    <h2>Course Management System</h2>
+    <h3>ASSIGN TEACHER TO COURSE</h3>
+    </div>
+    <div class="form">
+    <form action="" method="post" >
+        {% csrf_token %}
+        <input type="text" name="courseid" id="courseid" placeholder="Course ID" required/>
+        <input type="text" name="teacher" id="teacher" placeholder="Teacher" required/>
+    <button class="button">
+    ADD
+    </button>
+    </form>
+    <button type="button" class="button" onclick="location.href='adm_select_course'">
+        BACK
+      </button>
+</div>
+{% for message in messages %}
+<p>{{message}}</p>
+{% endfor %}
+</div>
+</div>
+
+</body>
+</html>
+{% endblock content %}

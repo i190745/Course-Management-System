@@ -7,7 +7,10 @@ body{
   background-image: linear-gradient(to right,hsl(189, 75%, 42%),hsl(185,71%,93%));
 }
 
-
+table{
+  align-items: center;
+  align-self: center;
+}
 
 .home-page{
   width: 600px;

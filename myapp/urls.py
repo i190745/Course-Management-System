@@ -15,8 +15,6 @@ urlpatterns = [
     path('s_enroll',views.student_enroll_course,name='Student Enroll Course'),
     path('s_drop',views.student_drop_course,name='Student Drop Course'),
     
-
-    
     path('t_register',views.teacher_register,name='Teacher Register'),
     path('t_login',views.teacher_login,name='Teacher Login'),
     path('t_logout',views.teacher_logout,name='Teacher Logout'),
@@ -24,6 +22,8 @@ urlpatterns = [
     path('t_manage_acc',views.teacher_manage_acc,name='Teacher Manage Account'),
     path('t_change_password',views.teacher_change_password,name='Teacher Change Password'),
     path('t_delete_account',views.teacher_delete_account,name='Teacher Delete Account'),
+    path('t_view-courses',views.teacher_view_courses,name='Teacher View Courses'),
+
 
     path('adm_login',views.admin_login,name='Admin Login'),
     path('adm_logout',views.admin_logout,name='Admin Logout'),
@@ -34,6 +34,12 @@ urlpatterns = [
     path('adm_manage_courses',views.admin_manage_courses,name='Admin Manage Courses'),
     path('adm_add_course',views.admin_add_course,name='Admin Add Course'),
     path('adm_remove_course',views.admin_remove_course,name='Admin Remove Course'),
-    path('adm_specify_prerequisite',views.admin_specify_prerequisite,name='Admin Specify Prerequisite')
+    path('adm_specify_prerequisite',views.admin_specify_prerequisite,name='Admin Specify Prerequisite'),
+    path('adm_select_course',views.admin_select_course,name='Admin Select Course'),
+    path('adm_add_student_course',views.admin_add_student_course,name='Admin Add Student Course'),
+    path('adm_remove_student_course',views.admin_remove_student_course,name='Admin Remove Student Course'),
+    path('adm_add_teacher_course',views.admin_add_teacher_course,name='Admin Add Teacher Course'),
+    path('adm_remove_teacher_course',views.admin_remove_teacher_course,name='Admin Remove Teacher Course')
+
 
 ]

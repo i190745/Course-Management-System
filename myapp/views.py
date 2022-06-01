@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
-from .models import Student,Teacher,Course,studentClasses, Admin
+from .models import Student,Teacher,Course,studentClasses, Admin, teacherClass
 from .forms import StudentForm, TeacherForm,CourseForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
@@ -12,8 +12,6 @@ from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, "index.html")
-
-
 
 def student_login(request):
     if request.method=='POST':
@@ -58,17 +56,7 @@ def student_dash(request):
     stu=Student.objects.get(username=user)
     return render(request, "s_dash.html",{'student':stu})
 
-@login_required(login_url='Teacher Login')
-def teacher_dash(request):
-    user = request.session.get('user')
-    t=Teacher.objects.get(username=user)
-    return render(request, "t_dash.html",{'teacher':t})
 
-@login_required(login_url='Admin Login')
-def admin_dash(request):
-    user = request.session.get('user')
-    adm=Admin.objects.get(username=user)
-    return render(request, "adm_dash.html",{'admin':adm})
 
 @login_required(login_url='Student Login')
 def student_manage_acc(request):
@@ -193,6 +181,12 @@ def teacher_logout(request):
     return render(request, "t_logout.html")
 
 @login_required(login_url='Teacher Login')
+def teacher_dash(request):
+    user = request.session.get('user')
+    t=Teacher.objects.get(username=user)
+    return render(request, "t_dash.html",{'teacher':t})
+
+@login_required(login_url='Teacher Login')
 def teacher_delete_account(request):
     if request.method=='POST':
         user = request.session.get('user')
@@ -246,6 +240,13 @@ def admin_manage_acc(request):
 def admin_logout(request):
     logout(request)
     return render(request, "adm_logout.html")
+
+
+@login_required(login_url='Admin Login')
+def admin_dash(request):
+    user = request.session.get('user')
+    adm=Admin.objects.get(username=user)
+    return render(request, "adm_dash.html",{'admin':adm})
 
 @login_required(login_url='Admin Login')
 def admin_delete_account(request):
@@ -321,3 +322,92 @@ def admin_specify_prerequisite(request):
             messages.info(request, "Course or PreRequisite does not Exist") 
 
     return render(request, "adm_specify-prerequisite.html",{'courses':courses})
+
+@login_required(login_url='Admin Login')
+def admin_select_course(request):
+    c_list=Course.objects.all()    
+    if request.method=='POST':
+        cid=request.POST['cid']
+        c_s=studentClasses.objects.filter(course_id=cid)
+        students=Student.objects.all()
+        if teacherClass.objects.filter(course_id=cid).exists():
+            teacher=teacherClass.objects.filter(course_id=cid)
+        else:
+            teacher="Not Assigned"
+        return render(request,'adm_view-course.html',{'courses':c_s,'students':students,'t':teacher})
+    return render(request, "adm_select-course.html",{'courses':c_list})
+
+
+@login_required(login_url='Admin Login')
+def admin_add_student_course(request):
+    if request.method=='POST':
+        cid=request.POST['courseid']
+        stu=request.POST['student']
+        if not Student.objects.filter(username=stu).exists():
+            messages.info(request, "Student Does Not Exist")
+        elif not Course.objects.filter(course_id=cid).exists():
+            messages.info(request, "Course Does Not Exist")
+        elif studentClasses.objects.filter(course_id=cid,student=stu).exists():
+            messages.info(request, stu+" already enrolled in "+cid )
+        else:
+            s_c=studentClasses.objects.create(student=stu,course_id=cid)
+            s_c.save()
+            messages.success(request, stu+" added to "+cid)
+            return redirect("Admin Select Course")
+    return render(request, "adm_add-student-course.html")
+
+@login_required(login_url='Admin Login')
+def admin_remove_student_course(request):
+
+    if request.method=='POST':
+        cid=request.POST['courseid']
+        stu=request.POST['student']
+        if not Student.objects.filter(username=stu).exists():
+            messages.info(request, "Student Does Not Exist")
+        elif not Course.objects.filter(course_id=cid).exists():
+            messages.info(request, "Course Does Not Exist")
+        elif not studentClasses.objects.filter(course_id=cid,student=stu).exists():
+            messages.info(request, stu+" not enrolled in "+cid )
+        else:
+            s_c=studentClasses.objects.filter(course_id=cid,student=stu)
+            s_c.delete()
+            messages.success(request, stu+" removed from "+cid)
+            return redirect("Admin Select Course")
+
+    return render(request, "adm_remove-student-course.html")
+
+@login_required(login_url='Admin Login')
+def admin_add_teacher_course(request):
+    if request.method=='POST':
+        cid=request.POST['courseid']
+        stu=request.POST['teacher']
+        if not Teacher.objects.filter(username=stu).exists():
+            messages.info(request, "Teacher Does Not Exist")
+        elif not Course.objects.filter(course_id=cid).exists():
+            messages.info(request, "Course Does Not Exist")
+        elif teacherClass.objects.filter(course_id=cid,teacher=stu).exists():
+            messages.info(request, stu+" Already Teaches "+cid )
+        else:
+            s_c=teacherClass.objects.create(course_id=cid,teacher=stu)
+            s_c.save()
+            messages.success(request, stu+" Teaches "+cid)
+            return redirect("Admin Select Course")
+    return render(request, "adm_add-teacher-course.html")
+
+@login_required(login_url='Admin Login')
+def admin_remove_teacher_course(request):
+    if request.method=='POST':
+        cid=request.POST['courseid']
+        stu=request.POST['teacher']
+        if not Teacher.objects.filter(username=stu).exists():
+            messages.info(request, "Teacher Does Not Exist")
+        elif not Course.objects.filter(course_id=cid).exists():
+            messages.info(request, "Course Does Not Exist")
+        elif not teacherClass.objects.filter(course_id=cid,teacher=stu).exists():
+            messages.info(request, stu+" Does Not Teach "+cid )
+        else:
+            s_c=teacherClass.objects.filter()(course_id=cid,teacher=stu)
+            s_c.delete()
+            messages.success(request, stu+" Removed As Teacher "+cid)
+            return redirect("Admin Select Course")
+    return render(request, "adm_remove-teacher-course.html")
